@@ -15,8 +15,13 @@ import { RouterModule } from '@angular/router';
   styleUrl: './patient-profile.component.scss'
 })
 export class PatientProfileComponent implements OnInit {
+  maritalStatusOptions = [
+    { label: 'Casado', value: 'casado' },
+    { label: 'Solteiro', value: 'solteiro' },
+    { label: 'Divorciado', value: 'divorciado' }
+  ];
   user: any;
-
+  
   constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
