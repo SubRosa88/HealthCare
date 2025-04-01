@@ -32,3 +32,5 @@ export class DoctorPatientsComponent implements OnInit {
     this.patientHistory$ = this.dataService.medicalHistory$;
   }
 }
+
+
