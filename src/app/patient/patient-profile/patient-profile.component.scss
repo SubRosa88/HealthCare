@@ -1,0 +1,63 @@
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f5f6f5;
+}
+
+.profile-card {
+  width: 100%;
+  max-width: 900px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d3d3d3;
+  background-color: #ffffff;
+}
+
+.profile-form {
+  padding: 15px;
+}
+
+.fieldset {
+  margin-bottom: 20px;
+  border: 1px solid #b0b0b0;
+  background-color: #fafafa;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  padding: 10px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+input[pInputText] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #a9a9a9;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333333;
+}
+
+.readonly-input {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+/* Button Styles */
+.p-button {
+  width: 100%;
+  max-width: 200px; /* Limit button width */
+}

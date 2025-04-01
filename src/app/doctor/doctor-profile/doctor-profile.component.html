@@ -1,0 +1,26 @@
+
+    <div style="display: flex;">
+        <!-- Container 1 -->
+        <div style="flex: 1;">
+          <!-- Optional content for container 1 -->
+        </div>
+        
+        <!-- Container 2 (bigger) -->
+        <div style="flex: 3;">
+            <p-card header="Public Profile">
+                <p>Name: {{ doctor?.name }}</p>
+                <p>Specialty: {{ doctor?.specialty }}</p>
+                <p>Bio: {{ doctor?.publicBio }}</p>
+              </p-card>
+              <p-card header="Private Profile" class="p-mt-4">
+                <p>Notes: {{ doctor?.privateNotes || 'None' }}</p>
+                <p>License: {{ doctor?.licenseUrl || 'Not uploaded' }}</p>
+              </p-card>
+        </div>
+        
+        <!-- Container 3 -->
+        <div style="flex: 1;">
+          <!-- Optional content for container 3 -->
+        </div>
+      </div>
+      
