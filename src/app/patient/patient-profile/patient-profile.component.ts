@@ -17,6 +17,9 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { FileUploadModule } from 'primeng/fileupload';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
+import { DividerModule } from 'primeng/divider';
 
 
 
@@ -24,6 +27,7 @@ import { DatePickerModule } from 'primeng/datepicker';
   selector: 'app-patient-profile',
   standalone: true,
   imports: [
+    DividerModule,
     CommonModule, 
     CardModule, 
     FormsModule, 
@@ -39,6 +43,8 @@ import { DatePickerModule } from 'primeng/datepicker';
     FormsModule, 
     FloatLabelModule, 
     DatePickerModule,
+    DropdownModule,
+    CalendarModule,
     ],
   templateUrl: './patient-profile.component.html',
   styleUrl: './patient-profile.component.scss'
@@ -52,14 +58,27 @@ export class PatientProfileComponent implements OnInit {
     { label: 'Outro', value: 'outro' }
   ];  
 
-  sexOptions = [
-    { label: 'Masculino', value:'masculino' },
-    { label: 'Feminino', value: 'feminino' },
-  ];
+  bloodTypeOptions= [
+    { label: 'A+', value: 'A+' },
+    { label: 'B', value: 'B' },
+    { label: 'O', value: 'O' }
+  ]
 
+  locationOptions=[
+    { label: 'Lisboa', value: 'lisboa' },
+    { label: 'Faro', value: 'faro' },
+    { label: 'Porto', value: 'porto' }
+  ]
+
+  sexOptions = [
+    { label: 'Masculino', value: 'M' },
+    { label: 'Feminino', value: 'F' },
+    { label: 'Outro', value: 'O' }
+  ];
   nationalityOptions = [
-    { label: 'Portugues', value: 'poertugues' },
-    { label: 'Estrangeiro', value: 'estrangeiro' },
+    { label: 'Portugal', value: 'PT' },
+    { label: 'Brasil', value: 'BR' }
+    // Add more as needed
   ];
 
   uploadedFiles: any[] = [];

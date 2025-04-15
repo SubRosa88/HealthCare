@@ -1,281 +1,449 @@
-
-    <!-- PrimeFlex grid container for the form fields -->
-  <div class="grid formgrid">
-
-    < header="Dados do Usuário">
-    < (ngSubmit)="onSubmit()" #userForm="ngForm" class="p-fluid">
-      
-      <!-- Username -->
-      <p-floatlabel variant ="on" >
-        <span class="p-input-icon-left">
-          <i class="pi pi-user"></i>
-          <input
-            pInputText
-            id="username"
-            name="username"
-            [(ngModel)]="user.username"
-            [readonly]="!isEdit"
-            autocomplete="off"
-          />
-        </span>
-        <label for="username">Username</label>
-      </p-floatlabel>
+<form (ngSubmit)="onSubmit()" #userForm="ngForm" class="p-fluid form-container">
   
-      <!-- Email -->
-      <p-floatlabel variant ="on">
-        <span class="p-input-icon-left">
-          <i class="pi pi-envelope"></i>
-          <input
-            pInputText
-            id="email"
-            name="email"
-            [(ngModel)]="user.email"
-            [readonly]="!isEdit"
-            autocomplete="off"
-          />
-        </span>
-        <label for="email">Email</label>
-      </p-floatlabel>
   
-     <!-- Sexo -->
-      <p-floatlabel variant ="on">
-        <p-select
-          id="sex"
-          name="sex"
-          [(ngModel)]="user.sex"
+  <p-divider align="left" type="solid">
+    <b>Personal data</b>
+  </p-divider>
+
+  <!-- Nome -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <input
+        pInputText
+        id="Name"
+        name="Name"
+        [(ngModel)]="user.Name"
+        [readonly]="!isEdit"
+        class="p-inputtext-icon-left"
+      />
+      <i class="pi pi-user p-input-icon"></i>
+      <label for="Name">Nome</label>
+    </p-floatlabel>
+  </div>
+
+
+  <!-- Email -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <input
+        pInputText
+        id="email"
+        name="email"
+        [(ngModel)]="user.email"
+        [readonly]="!isEdit"
+        autocomplete="off"
+        class="p-inputtext-icon-left"
+      />
+      <i class="pi pi-envelope p-input-icon"></i>
+      <label for="email">Email</label>
+    </p-floatlabel>
+  </div>
+
+
+  <!-- Data de Nascimento -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <p-datepicker
+        id="dateOfBirth"
+        name="dateOfBirth"
+        [(ngModel)]="user.dateOfBirth"
+        [readonlyInput]="!isEdit"
+        [showIcon]="true"
+        iconDisplay="input"
+        styleClass="w-full"
+      ></p-datepicker>
+      <label for="dateOfBirth">Data de Nascimento</label>
+    </p-floatlabel>
+  </div>
+
+
+  <!-- Sexo -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <p-select
+        id="sex"
+        name="sex"
+        [(ngModel)]="user.sex"
+        [disabled]="!isEdit"
+        [options]="sexOptions"
+        optionLabel="label"
+        optionValue="value"
+        styleClass="w-full"
+      ></p-select>
+      <label for="sex">Género</label>
+    </p-floatlabel>
+  </div>    
+
+  <!-- Número de Identificação Civil -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <input
+        pInputText
+        id="civilNumber"
+        name="civilNumber"
+        [(ngModel)]="user.civilNumber"
+        [readonly]="!isEdit"
+        class="p-inputtext-icon-left"
+      />
+      <i class="pi pi-id-card p-input-icon"></i>
+      <label for="civilNumber">Nº Identificação Civil</label>
+    </p-floatlabel>
+  </div>
+
+  <!-- NIF -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <input
+        pInputText
+        id="nif"
+        name="nif"
+        [(ngModel)]="user.nif"
+        [readonly]="!isEdit"
+        class="p-inputtext-icon-left"
+      />
+      <i class="pi pi-id-card p-input-icon"></i>
+      <label for="nif">NIF</label>
+    </p-floatlabel>
+  </div>
+
+
+  <!-- Nacionalidade -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <p-select
+        id="nationality"
+        name="nationality"
+        [(ngModel)]="user.nationality"
+        [disabled]="!isEdit"
+        [options]="nationalityOptions"
+        optionLabel="label"
+        optionValue="value"
+        [filter]="true"
+        filterMatchMode="contains"
+        [showClear]="true"
+        styleClass="w-full"
+      ></p-select>
+      <label for="nationality">Nacionalidade</label>
+    </p-floatlabel>
+  </div>
+
+  <!-- Estado Civil -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <input
+        pInputText
+        id="maritalStatus"
+        name="maritalStatus"
+        [(ngModel)]="user.maritalStatus"
+        [readonly]="!isEdit"
+        class="p-inputtext-icon-left"
+      />
+      <i class="pi pi-heart p-input-icon"></i>
+      <label for="maritalStatus">Estado Civil</label>
+    </p-floatlabel>
+  </div>
+
+    <!-- Número de Saúde -->
+    <div class="form-field">
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="medicalNumber"
+          name="medicalNumber"
+          [(ngModel)]="user.medicalNumber"
           [readonly]="!isEdit"
-          [options]="sexOptions"
-          [style]="{'width': '50%'}"
-        ></p-select>
-        <label for="sex">Género</label>
-      </p-floatlabel>
-
-      <!-- Primeiro Nome -->
-      <p-floatlabel variant ="on">
-        <span class="p-input-icon-left">
-          <i class="pi pi-user"></i>
-          <input
-            pInputText
-            id="firstName"
-            name="firstName"
-            [(ngModel)]="user.firstName"
-            [readonly]="!isEdit"
-          />
-        </span>
-        <label for="firstName">Primeiro Nome</label>
-      </p-floatlabel>
-
-  
-      <!-- Último Nome -->
-      <p-floatlabel variant ="on">
-        <span class="p-input-icon-left">
-          <i class="pi pi-lastName"></i>
-            <input
-            pInputText
-            id="lastName"
-            name="lastName"
-            [(ngModel)]="user.lastName"
-            [readonly]="!isEdit"
-          />
-        </span>
-        <label for="lastName">Último Nome</label>
-      </p-floatlabel>
-  
-      <!-- Data de Nascimento -->
-      <p-floatlabel variant ="on">
-        <span class="p-input-icon-left">
-          <i class="pi pi-date"></i>
-            <p-datepicker 
-              [(ngModel)]="user.dateOfBirth" 
-              inputId="dateOfBirth" 
-              showIcon 
-              iconDisplay="input"
-            />
-        </span>
-        <label for="dateOfBirth">Data de Nascimento</label>
-      </p-floatlabel>
-
-    
-      <!-- Nacionalidade -->
-      
-      <p-floatlabel variant ="on">
-        <span class="p-input-icon-left">
-          <i class="pi pi-user"></i>
-            <p-select
-              pInputText
-              id="nationality"
-              name="nationality"
-              [(ngModel)]="user.nationality"
-              [readonly]="!isEdit"
-              [options]="nationalityOptions"
-              [style]="{'width': '100%'}"
-              [filter]="true"
-              [filterMatchMode]="'contains'"
-              [optionLabel]="'label'"
-              [optionValue]="'value'"
-              [filterBy]="user.nationality"
-              [showClear]="true"
-            />
-        </span>
-        <label for="lastName">Nacionalidade</label>
-      </p-floatlabel>              
-  
-      <!-- Endereço -->
-      <p-floatlabel variant ="on">
-        <span class="p-input-icon-left">
-          <i class="pi pi-home"></i>
-            <input
-            pInputText
-            id="address"
-            name="address"
-            [(ngModel)]="user.address"
-            [readonly]="!isEdit"
-           />
-        </span>
-        <label for="address">Endereço</label>
-      </p-floatlabel>
-
-      <!-- Código Postal -->
-      <p-floatlabel variant ="on">
-        <span class="p-input-icon-left">
-          <i class="pi pi-home"></i>
-            <input
-            pInputText
-            id="postCode"
-            name="postCode"
-            [(ngModel)]="user.postCode"
-            [readonly]="!isEdit"
-         />
-        </span>
-        <label for="postCode">Código Postal</label>
-      </p-floatlabel>
-  
-      <!-- Número de Identificação Civil -->
-      <p-floatlabel variant ="on">
-        <span class="p-input-icon-left">
-          <i class="pi pi-"></i>
-            <input
-            pInputText
-            id="civilNumber"
-            name="civilNumber"
-            [(ngModel)]="user.civilNumber"
-            [readonly]="!isEdit"
-         />
-        </span>
-        <label for="civilNumber">Nº Identificação Civil</label>
-      </p-floatlabel>
-  
-      <!-- Número de Saúde -->
-      <p-floatlabel variant ="on">
-        <span class="p-input-icon-left">
-          <i class="pi pi-"></i>
-            <input
-            pInputText
-            id="medicalNumber"
-            name="medicalNumber"
-            [(ngModel)]="user.medicalNumber"
-            [readonly]="!isEdit"
-         />
-        </span>
+          class="p-inputtext-icon-left"
+        />
+        <i class="pi pi-heart p-input-icon"></i>
         <label for="medicalNumber">Nº de Saúde</label>
       </p-floatlabel>
+    </div>
   
-      <!-- NISS -->
-      <p-floatlabel variant ="on">
-        <span class="p-input-icon-left">
-          <i class="pi pi-"></i>
-            <input
-            pInputText
-            id="niss"
-            name="niss"
-            [(ngModel)]="user.niss"
-            [readonly]="!isEdit"
-         />
-        </span>
+    <!-- NISS -->
+    <div class="form-field">
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="niss"
+          name="niss"
+          [(ngModel)]="user.niss"
+          [readonly]="!isEdit"
+          class="p-inputtext-icon-left"
+        />
+        <i class="pi pi-id-card p-input-icon"></i>
         <label for="niss">NISS</label>
       </p-floatlabel>
-  
-      <!-- NIF -->
-      <p-floatlabel variant ="on">
-        <span class="p-input-icon-left">
-          <i class="pi pi-"></i>
-            <input
-            pInputText
-            id="nif"
-            name="nif"
-            [(ngModel)]="user.nif"
-            [readonly]="!isEdit"
-         />
-        </span>
-        <label for="nif">NIF</label>
-      </p-floatlabel>
-  
-      <!-- Telefone -->
-      <p-floatlabel variant ="on">
-        <span class="p-input-icon-left">
-          <i class="pi pi-phone"></i>
-            <input
-            pInputText
-            id="phoneNumber"
-            name="phoneNumber"
-            [(ngModel)]="user.phoneNumber"
-            [readonly]="!isEdit"
-         />
-        </span>
-        <label for="phoneNumber">Telefone</label>
-      </p-floatlabel>
-  
-      <!-- Estado Civil -->
-      <p-floatlabel variant ="on">
-        <span class="p-input-icon-left">
-          <i class="pi pi-"></i>
-            <input
-            pInputText
-            id="meritalStatus"
-            name="meritalStatus"
-            [(ngModel)]="user.meritalStatus"
-            [readonly]="!isEdit"
-         />
-        </span>
-        <label for="meritalStatus">Estado Civil</label>
-      </p-floatlabel>
+    </div>
 
-      <!-- File Upload -->
-      <div class="p-field">
-        <label>Adicione foto de perfil</label>
-        <p-fileUpload
-          name="myfile[]"
-          [customUpload]="true"
-          (uploadHandler)="onUpload($event)"
-          [disabled]="!isEdit"
-          [multiple]="false"
-          accept=".pdf,.doc,.docx,.jpg,.png"
-          maxFileSize="10000000"
-        >
-          <ng-template pTemplate="content">
-           <div class="p-text-center">
-              <i class="pi pi-upload" style="font-size: 2rem"></i>
-              <p>Arraste e solte o ficheiro aqui ou clique para selecionar</p>
-            </div>
-          </ng-template>
-        </p-fileUpload>
-      </div>
+
+  <p-divider align="left" type="solid">
+    <b>Contactos e Endereço</b>
+  </p-divider>
+
+  <!-- Endereço -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <input
+        pInputText
+        id="address"
+        name="address"
+        [(ngModel)]="user.address"
+        [readonly]="!isEdit"
+        class="p-inputtext-icon-left"
+      />
+      <i class="pi pi-home p-input-icon"></i>
+      <label for="address">Endereço</label>
+    </p-floatlabel>
+  </div>
+
+  <!-- Código Postal -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <input
+        pInputText
+        id="postCode"
+        name="postCode"
+        [(ngModel)]="user.postCode"
+        [readonly]="!isEdit"
+        class="p-inputtext-icon-left"
+      />
+      <i class="pi pi-home p-input-icon"></i>
+      <label for="postCode">Código Postal</label>
+    </p-floatlabel>
+  </div>
+
+  <!-- Localidade -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <input
+        pInputText
+        id="district"
+        name="district"
+        [(ngModel)]="user.district"
+        [readonly]="!isEdit"
+        class="p-inputtext-icon-left"
+      />
+      <i class="pi pi-home p-input-icon"></i>
+      <label for="district">Localidade</label>
+    </p-floatlabel>
+  </div>  
+
+  <!-- Telefone -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <input
+        pInputText
+        id="phoneNumber"
+        name="phoneNumber"
+        [(ngModel)]="user.phoneNumber"
+        [readonly]="!isEdit"
+        class="p-inputtext-icon-left"
+      />
+      <i class="pi pi-phone p-input-icon"></i>
+      <label for="phoneNumber">Telefone</label>
+    </p-floatlabel>
+  </div>
+
+  <p-divider align="left" type="solid">
+    <b>Dados Médicos</b>
+  </p-divider>
+
+  <!-- Alergias -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <input
+        pInputText
+        id="allergies"
+        name="allergies"
+        [(ngModel)]="user.allergies"
+        [readonly]="!isEdit"
+        class="p-inputtext-icon-left"
+      />
+      <i class="pi pi-home p-input-icon"></i>
+      <label for="dallergies">Alergias</label>
+    </p-floatlabel>
+  </div>  
   
-      <!-- Botões -->
-      <div class="p-mt-3">
-        <button
-          pButton
-          type="button"
-          (click)="toggleEdit()"
-          label="{{ isEdit ? 'Cancelar' : 'Editar' }}"
-          iconPos="right"
-        ></button>
-        <button
-          pButton
-          type="submit"
-          label="Submeter"
-          class="p-ml-2"
-          [disabled]="!isEdit"
-          iconPos="right"
-        ></button>
-      </div>
+  <!-- Tipo de Sangue -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <p-select
+        id="bloodType"
+        name="bloodType"
+        [(ngModel)]="user.bloodType"
+        [disabled]="!isEdit"
+        [options]="bloodTypeOptions"
+        optionLabel="label"
+        optionValue="value"
+        styleClass="w-full"
+      ></p-select>
+      <label for="bloodType">Tipo Sanguíneo</label>
+    </p-floatlabel>
+  </div>    
+
+  <p-divider align="left" type="solid">
+    <b>Contacto de Emergência</b>
+  </p-divider>
+
+ <!-- Primeiro Nome -->
+ <div class="form-field">
+  <p-floatlabel variant="on">
+    <input
+      pInputText
+      id="emergencyName"
+      name="emergencyName"
+      [(ngModel)]="user.emergencyName"
+      [readonly]="!isEdit"
+      class="p-inputtext-icon-left"
+    />
+    <i class="pi pi-user p-input-icon"></i>
+    <label for="emergencyName">Nome</label>
+  </p-floatlabel>
+</div>
+
+
+<!-- Afiliação -->
+<div class="form-field">
+  <p-floatlabel variant="on">
+    <input
+      pInputText
+      id="emergencyAffiliation"
+      name="emergencyAffiliation"
+      [(ngModel)]="user.emergencyAffiliation"
+      [readonly]="!isEdit"
+      class="p-inputtext-icon-left"
+    />
+    <i class="pi pi-user p-input-icon"></i>
+    <label for="emergencyAffiliation">Afiliação</label>
+  </p-floatlabel>
+</div>  
+
+  <!-- Email -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <input
+        pInputText
+        id="emergencyEmail"
+        name="emergencyEmail"
+        [(ngModel)]="user.emergencyEmail"
+        [readonly]="!isEdit"
+        autocomplete="off"
+        class="p-inputtext-icon-left"
+      />
+      <i class="pi pi-envelope p-input-icon"></i>
+      <label for="emergencyEmail">Email</label>
+    </p-floatlabel>
+  </div>
+
+  <!-- Telefone -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <input
+        pInputText
+        id="emergencyPhoneNumber"
+        name="emergencyPhoneNumber"
+        [(ngModel)]="user.emergencyPhoneNumber"
+        [readonly]="!isEdit"
+        class="p-inputtext-icon-left"
+      />
+      <i class="pi pi-phone p-input-icon"></i>
+      <label for="emergencyPhoneNumber">Telefone</label>
+    </p-floatlabel>
+  </div>
+
+  <p-divider align="left" type="solid">
+    <b>Perfil Médico</b>
+  </p-divider>
+
+
+  <!-- Cédula -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <input
+        pInputText
+        id="medicalLicense"
+        name="medicalLicense"
+        [(ngModel)]="user.medicalLicense"
+        [readonly]="!isEdit"
+        class="p-inputtext-icon-left"
+      />
+      <i class="pi pi-id-card p-input-icon"></i>
+      <label for="medicalLicense">Cédula Profissional</label>
+    </p-floatlabel>
+  </div>
+
+<!-- Especialidade -->
+<div class="form-field">
+  <p-floatlabel variant="on">
+    <input
+      pInputText
+      id="specialties"
+      name="specialties"
+      [(ngModel)]="user.specialties"
+      [readonly]="!isEdit"
+      class="p-inputtext-icon-left"
+    />
+    <i class="pi pi-user p-input-icon"></i>
+    <label for="specialties">Especialidades</label>
+  </p-floatlabel>
+</div>  
+
+  <!-- location -->
+  <div class="form-field">
+    <p-floatlabel variant="on">
+      <p-select
+        id="location"
+        name="location"
+        [(ngModel)]="user.location"
+        [disabled]="!isEdit"
+        [options]="locationOptions"
+        optionLabel="label"
+        optionValue="value"
+        styleClass="w-full"
+      ></p-select>
+      <label for="location">Distrito</label>
+    </p-floatlabel>
+  </div>    
+
+
+
+  <!-- File Upload -->
+  <div class="form-field full-width">
+    <label>Adicione foto de perfil</label>
+    <p-fileUpload
+      name="myfile[]"
+      [customUpload]="true"
+      (uploadHandler)="onUpload($event)"
+      [disabled]="!isEdit"
+      [multiple]="false"
+      accept=".pdf,.doc,.docx,.jpg,.png"
+      maxFileSize="10000000"
+    >
+      <ng-template pTemplate="content">
+        <div class="p-text-center">
+          <i class="pi pi-upload" style="font-size: 2rem"></i>
+          <p>Arraste e solte o ficheiro aqui ou clique para selecionar</p>
+        </div>
+      </ng-template>
+    </p-fileUpload>
+  </div>
+
+  <!-- Botões -->
+  <div class="form-field full-width">
+    <button
+      pButton
+      type="button"
+      (click)="toggleEdit()"
+      label="{{ isEdit ? 'Cancelar' : 'Editar' }}"
+      iconPos="right"
+    ></button>
+    <button
+      pButton
+      type="submit"
+      label="Submeter"
+      [disabled]="!isEdit"
+      iconPos="right"
+      class="p-ml-2"
+    ></button>
+  </div>
+</form>
