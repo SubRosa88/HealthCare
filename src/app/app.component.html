@@ -4,13 +4,34 @@
   </ng-template>
   <ng-template pTemplate="end">
     <p-avatar
-      [label]="user.name.charAt(0)"
+      [label]="!user.picture ? (user.username?.charAt(0) || '') : ''"
       shape="circle"
       (click)="roleMenu.toggle($event)"
-      styleClass="p-mr-2">
+      styleClass="p-mr-2"
+      [image]="user.picture"> 
+      {{ user.username }}
+      <i class="pi pi-caret-down"></i>
     </p-avatar>
     <p-menu #roleMenu [model]="roleItems" [popup]="true"></p-menu>
   </ng-template>
 </p-menubar>
 
-<router-outlet></router-outlet>
+<div class="layout-container">
+  <div class="left-container"></div>
+  <div class="main-container">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="right-container"></div>
+</div>
+
+<footer class="app-footer">
+  <p-toolbar>
+    <div class="p-toolbar-group-start">
+      <span>&copy; 2025 Health Care Portal. All rights reserved. </span>
+    </div>
+    <div class="p-toolbar-group-end">
+      <p-button label="About" icon="pi pi-info-circle" routerLink="/about"></p-button>
+      <p-button label="Contact" icon="pi pi-envelope" routerLink="/contact"></p-button>
+    </div>
+  </p-toolbar>
+</footer>

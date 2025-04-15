@@ -9,7 +9,7 @@ export interface TimeSlot { start: string; end: string; }
 
 @Injectable({ providedIn: 'root' })
 export class DataService {
-  private currentUser: User = { id: '1', name: 'Jane Doe', email: 'jane@example.com', roles: ['patient', 'doctor', 'admin'], status: 'active'  };
+  private currentUser: User = { id: '1', name: 'Jane Doe', email: 'jane@example.com', roles: ['patient', 'doctor', 'admin'], status: 'pending'  };
   private doctors: Doctor[] = [
     { id: 'd1', name: 'Dr. Smith', availability: 'static', workHoursStart: '09:00', workHoursEnd: '18:00', specialty: 'Cardiology', status: 'active', publicBio: '20 years experience', privateNotes: 'Prefers mornings', licenseUrl: 'license1.jpg' },
     { id: 'd2', name: 'Dr. Jones', availability: 'dynamic', specialty: 'Pediatrics', status: 'pending', publicBio: 'New grad', privateNotes: '', licenseUrl: 'license2.pdf' },

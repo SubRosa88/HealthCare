@@ -6,11 +6,13 @@ import { MenuModule } from 'primeng/menu';
 import { DataService } from './shared/data.service';
 import { MenuItem } from 'primeng/api';
 import { CommonModule } from '@angular/common';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, MenubarModule, AvatarModule, MenuModule],
+  imports: [CommonModule, RouterOutlet, MenubarModule, AvatarModule, MenuModule, ToolbarModule, ButtonModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })

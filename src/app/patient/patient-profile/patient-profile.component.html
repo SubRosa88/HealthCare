@@ -1,133 +1,281 @@
-<div class="container" style="display: flex;">
-  <!-- Container 1 (Left) -->
-  <div style="flex: 1;">
-    <!-- Optional content for container 1 -->
-  </div>
 
-  <!-- Container 2 (Middle, Profile Form) -->
-  <div style="flex: 3;">
-    <p-card header="Patient Profile" class="profile-card">
-      <form class="profile-form">
-        <!-- Personal Information -->
-        <p-fieldset legend="Personal Information" class="fieldset">
-          <div class="form-grid">
-            <div class="form-field">
-              <label for="id">ID</label>
-              <input pInputText id="id" type="text" [value]="user?.id" readonly class="readonly-input" />
-            </div>
-            <div class="form-field">
-              <label for="username">Username</label>
-              <input pInputText id="username" type="text" [value]="user?.username" readonly class="readonly-input" />
-            </div>
-            <div class="form-field">
-              <label for="email">Email</label>
-              <input pInputText id="email" type="email" [value]="user?.email" />
-            </div>
-            <div class="form-field">
-              <label for="firstName">First Name</label>
-              <input pInputText id="firstName" type="text" [(ngModel)]="user.firstName" name="firstName" readonly class="readonly-input" />
-            </div>
-            <div class="form-field">
-              <label for="dateOfBirth">Date of Birth</label>
-              <input pInputText id="dateOfBirth" type="date" [(ngModel)]="user.dateBirth" name="dateBirth" readonly class="readonly-input" />
-            </div>
-            <div class="form-field">
-              <label for="sex">Sex</label>
-              <input pInputText id="sex" type="text" [(ngModel)]="user.sex" name="sex" readonly class="readonly-input" />
-            </div>
-            <div class="form-field">
-              <label for="nationality">Nationality</label>
-              <input pInputText id="nationality" type="text" [(ngModel)]="user.nationality" name="nationality" readonly class="readonly-input" />
-            </div>
-          </div>
-        </p-fieldset>
+    <!-- PrimeFlex grid container for the form fields -->
+  <div class="grid formgrid">
 
-        <!-- Contact Information -->
-        <p-fieldset legend="Contact Information" class="fieldset">
-          <div class="form-grid">
-            <div class="form-field">
-              <label for="address">Address</label>
-              <input pInputText id="address" type="text" [value]="user?.address" />
-            </div>
-            <div class="form-field">
-              <label for="postCode">Post Code</label>
-              <input pInputText id="postCode" type="text" [value]="user?.postCode" />
-            </div>
-            <div class="form-field">
-              <label for="phoneNumber">Phone Number</label>
-              <input pInputText id="phoneNumber" type="tel" [value]="user?.phoneNumber" />
-            </div>
-          </div>
-        </p-fieldset>
+    < header="Dados do Usuário">
+    < (ngSubmit)="onSubmit()" #userForm="ngForm" class="p-fluid">
+      
+      <!-- Username -->
+      <p-floatlabel variant ="on" >
+        <span class="p-input-icon-left">
+          <i class="pi pi-user"></i>
+          <input
+            pInputText
+            id="username"
+            name="username"
+            [(ngModel)]="user.username"
+            [readonly]="!isEdit"
+            autocomplete="off"
+          />
+        </span>
+        <label for="username">Username</label>
+      </p-floatlabel>
+  
+      <!-- Email -->
+      <p-floatlabel variant ="on">
+        <span class="p-input-icon-left">
+          <i class="pi pi-envelope"></i>
+          <input
+            pInputText
+            id="email"
+            name="email"
+            [(ngModel)]="user.email"
+            [readonly]="!isEdit"
+            autocomplete="off"
+          />
+        </span>
+        <label for="email">Email</label>
+      </p-floatlabel>
+  
+     <!-- Sexo -->
+      <p-floatlabel variant ="on">
+        <p-select
+          id="sex"
+          name="sex"
+          [(ngModel)]="user.sex"
+          [readonly]="!isEdit"
+          [options]="sexOptions"
+          [style]="{'width': '50%'}"
+        ></p-select>
+        <label for="sex">Género</label>
+      </p-floatlabel>
 
-        <!-- Identification Numbers -->
-        <p-fieldset legend="Identification Numbers" class="fieldset">
-          <div class="form-grid">
-            <div class="form-field">
-              <label for="civilId">Civil ID Number</label>
-              <input pInputText id="civilId" type="number" [(ngModel)]="user.civilId" name="civilId" readonly class="readonly-input" />
-            </div>
-            <div class="form-field">
-              <label for="medicalNumber">Medical Number</label>
-              <input pInputText id="medicalNumber" type="number" [(ngModel)]="user.medicalNumber" name="medicalNumber" readonly class="readonly-input" />
-            </div>
-            <div class="form-field">
-              <label for="niss">NISS</label>
-              <input pInputText id="niss" type="number" [(ngModel)]="user.niss" name="niss" readonly class="readonly-input" />
-            </div>
-            <div class="form-field">
-              <label for="nif">NIF</label>
-              <input pInputText id="nif" type="number" [(ngModel)]="user.nif" name="nif" readonly class="readonly-input" />
-            </div>
-          </div>
-        </p-fieldset>
+      <!-- Primeiro Nome -->
+      <p-floatlabel variant ="on">
+        <span class="p-input-icon-left">
+          <i class="pi pi-user"></i>
+          <input
+            pInputText
+            id="firstName"
+            name="firstName"
+            [(ngModel)]="user.firstName"
+            [readonly]="!isEdit"
+          />
+        </span>
+        <label for="firstName">Primeiro Nome</label>
+      </p-floatlabel>
 
-        <!-- Medical Information -->
-        <p-fieldset legend="Medical Information" class="fieldset">
-          <div class="form-grid">
-            <div class="form-field">
-              <label for="allergies">Allergies</label>
-              <input pInputText id="allergies" type="text" [value]="user?.allergies" />
-            </div>
-            <div class="form-field">
-              <label for="operations">Past Interventions</label>
-              <input pInputText id="operations" type="text" [value]="user?.operations" />
-            </div>
-            <div class="form-field">
-              <label for="chronicDiseases">Chronic Diseases</label>
-              <input pInputText id="chronicDiseases" type="text" [value]="user?.chronicDiseases" />
-            </div>
-            <div class="form-field">
-              <label for="hereditaryProblems">Hereditary Problems</label>
-              <input pInputText id="hereditaryProblems" type="text" [value]="user?.hereditaryProblems" />
-            </div>
-            <div class="form-field">
-              <label for="familyBackground">Family Medical Background</label>
-              <input pInputText id="familyBackground" type="text" [value]="user?.familyBackground" />
-            </div>
-          </div>
-        </p-fieldset>
+  
+      <!-- Último Nome -->
+      <p-floatlabel variant ="on">
+        <span class="p-input-icon-left">
+          <i class="pi pi-lastName"></i>
+            <input
+            pInputText
+            id="lastName"
+            name="lastName"
+            [(ngModel)]="user.lastName"
+            [readonly]="!isEdit"
+          />
+        </span>
+        <label for="lastName">Último Nome</label>
+      </p-floatlabel>
+  
+      <!-- Data de Nascimento -->
+      <p-floatlabel variant ="on">
+        <span class="p-input-icon-left">
+          <i class="pi pi-date"></i>
+            <p-datepicker 
+              [(ngModel)]="user.dateOfBirth" 
+              inputId="dateOfBirth" 
+              showIcon 
+              iconDisplay="input"
+            />
+        </span>
+        <label for="dateOfBirth">Data de Nascimento</label>
+      </p-floatlabel>
 
-        <!-- Status -->
-        <p-fieldset legend="Status" class="fieldset">
-          <div class="form-grid">
-            <div class="form-field">
-              <label for="maritalStatus">Marital Status</label>
-              <input pInputText id="maritalStatus" type="text" [value]="user?.maritalStatus" />
-            </div>
-            <div class="form-field">
-              <label for="enabled">Enabled</label>
-              <input pInputText id="enabled" type="text" [value]="user?.enabled" readonly class="readonly-input" />
-            </div>
-          </div>
-        </p-fieldset>
-      </form>
-    </p-card>
-  </div>
+    
+      <!-- Nacionalidade -->
+      
+      <p-floatlabel variant ="on">
+        <span class="p-input-icon-left">
+          <i class="pi pi-user"></i>
+            <p-select
+              pInputText
+              id="nationality"
+              name="nationality"
+              [(ngModel)]="user.nationality"
+              [readonly]="!isEdit"
+              [options]="nationalityOptions"
+              [style]="{'width': '100%'}"
+              [filter]="true"
+              [filterMatchMode]="'contains'"
+              [optionLabel]="'label'"
+              [optionValue]="'value'"
+              [filterBy]="user.nationality"
+              [showClear]="true"
+            />
+        </span>
+        <label for="lastName">Nacionalidade</label>
+      </p-floatlabel>              
+  
+      <!-- Endereço -->
+      <p-floatlabel variant ="on">
+        <span class="p-input-icon-left">
+          <i class="pi pi-home"></i>
+            <input
+            pInputText
+            id="address"
+            name="address"
+            [(ngModel)]="user.address"
+            [readonly]="!isEdit"
+           />
+        </span>
+        <label for="address">Endereço</label>
+      </p-floatlabel>
 
-  <!-- Container 3 (Right, Buttons) -->
-  <div style="flex: 1; padding: 20px; display: flex; flex-direction: column; gap: 15px; align-items: center;">
-    <p-button label="View Profile" icon="pi pi-user" styleClass="p-button-raised p-button-secondary" (onClick)="viewProfile()"></p-button>
-    <p-button label="Edit Profile" icon="pi pi-pencil" styleClass="p-button-raised p-button-primary" [routerLink]=""></p-button>
-  </div>
-</div>
+      <!-- Código Postal -->
+      <p-floatlabel variant ="on">
+        <span class="p-input-icon-left">
+          <i class="pi pi-home"></i>
+            <input
+            pInputText
+            id="postCode"
+            name="postCode"
+            [(ngModel)]="user.postCode"
+            [readonly]="!isEdit"
+         />
+        </span>
+        <label for="postCode">Código Postal</label>
+      </p-floatlabel>
+  
+      <!-- Número de Identificação Civil -->
+      <p-floatlabel variant ="on">
+        <span class="p-input-icon-left">
+          <i class="pi pi-"></i>
+            <input
+            pInputText
+            id="civilNumber"
+            name="civilNumber"
+            [(ngModel)]="user.civilNumber"
+            [readonly]="!isEdit"
+         />
+        </span>
+        <label for="civilNumber">Nº Identificação Civil</label>
+      </p-floatlabel>
+  
+      <!-- Número de Saúde -->
+      <p-floatlabel variant ="on">
+        <span class="p-input-icon-left">
+          <i class="pi pi-"></i>
+            <input
+            pInputText
+            id="medicalNumber"
+            name="medicalNumber"
+            [(ngModel)]="user.medicalNumber"
+            [readonly]="!isEdit"
+         />
+        </span>
+        <label for="medicalNumber">Nº de Saúde</label>
+      </p-floatlabel>
+  
+      <!-- NISS -->
+      <p-floatlabel variant ="on">
+        <span class="p-input-icon-left">
+          <i class="pi pi-"></i>
+            <input
+            pInputText
+            id="niss"
+            name="niss"
+            [(ngModel)]="user.niss"
+            [readonly]="!isEdit"
+         />
+        </span>
+        <label for="niss">NISS</label>
+      </p-floatlabel>
+  
+      <!-- NIF -->
+      <p-floatlabel variant ="on">
+        <span class="p-input-icon-left">
+          <i class="pi pi-"></i>
+            <input
+            pInputText
+            id="nif"
+            name="nif"
+            [(ngModel)]="user.nif"
+            [readonly]="!isEdit"
+         />
+        </span>
+        <label for="nif">NIF</label>
+      </p-floatlabel>
+  
+      <!-- Telefone -->
+      <p-floatlabel variant ="on">
+        <span class="p-input-icon-left">
+          <i class="pi pi-phone"></i>
+            <input
+            pInputText
+            id="phoneNumber"
+            name="phoneNumber"
+            [(ngModel)]="user.phoneNumber"
+            [readonly]="!isEdit"
+         />
+        </span>
+        <label for="phoneNumber">Telefone</label>
+      </p-floatlabel>
+  
+      <!-- Estado Civil -->
+      <p-floatlabel variant ="on">
+        <span class="p-input-icon-left">
+          <i class="pi pi-"></i>
+            <input
+            pInputText
+            id="meritalStatus"
+            name="meritalStatus"
+            [(ngModel)]="user.meritalStatus"
+            [readonly]="!isEdit"
+         />
+        </span>
+        <label for="meritalStatus">Estado Civil</label>
+      </p-floatlabel>
+
+      <!-- File Upload -->
+      <div class="p-field">
+        <label>Adicione foto de perfil</label>
+        <p-fileUpload
+          name="myfile[]"
+          [customUpload]="true"
+          (uploadHandler)="onUpload($event)"
+          [disabled]="!isEdit"
+          [multiple]="false"
+          accept=".pdf,.doc,.docx,.jpg,.png"
+          maxFileSize="10000000"
+        >
+          <ng-template pTemplate="content">
+           <div class="p-text-center">
+              <i class="pi pi-upload" style="font-size: 2rem"></i>
+              <p>Arraste e solte o ficheiro aqui ou clique para selecionar</p>
+            </div>
+          </ng-template>
+        </p-fileUpload>
+      </div>
+  
+      <!-- Botões -->
+      <div class="p-mt-3">
+        <button
+          pButton
+          type="button"
+          (click)="toggleEdit()"
+          label="{{ isEdit ? 'Cancelar' : 'Editar' }}"
+          iconPos="right"
+        ></button>
+        <button
+          pButton
+          type="submit"
+          label="Submeter"
+          class="p-ml-2"
+          [disabled]="!isEdit"
+          iconPos="right"
+        ></button>
+      </div>
