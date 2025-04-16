@@ -1,0 +1,139 @@
+:host {
+    display: block;
+    padding: 1rem;
+  }
+  
+  .md\:flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    .md\:flex-row {
+      flex-direction: column !important;
+    }
+  }
+
+  textarea {
+    padding: 7px;
+  }
+
+  .w-full {
+    width: 100%;
+  }
+.form-field .p-inputtext {
+    width: 100%;
+}
+
+.custom-datepicker {
+    width: 100%;
+  }
+  
+  .custom-datepicker ::ng-deep .p-datepicker {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 1.2rem !important;
+  }
+  
+  .custom-datepicker ::ng-deep .p-datepicker table td {
+    padding: 0.5rem !important;
+  }
+  
+  .custom-datepicker ::ng-deep .p-datepicker table th {
+    font-size: 1.2rem !important;
+  }
+  
+  .custom-datepicker ::ng-deep .p-datepicker-header {
+    padding: 0.5rem !important;
+    font-size: 1.2rem !important;
+  }
+
+
+  .max-h-\[400px\] {
+    max-height: 400px;
+  }
+  
+  /* Ensure equal width for columns */
+  .flex-1 {
+    flex: 1 1 0%;
+  }
+  
+  /* Prevent autocomplete from shrinking too much */
+  p-autocomplete {
+    display: block;
+    width: 100%;
+  }
+  
+  p-autocomplete ::ng-deep .p-autocomplete {
+    width: 100%;
+  }
+
+  .time-slots-container {
+    height: 360px;
+    max-height: 360px;
+    overflow-y: auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .time-slot-span {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 2px;
+    border-radius: 10px;
+  }
+  
+  .time-slot {
+    background-color: white;
+    border: 2px solid lightgray;
+    color: var(--primary-color);
+    transition: all 0.2s ease;
+  }
+  
+  .time-slot-selected {
+    background-color: #06b6d4;
+    border: 2px solid #06b6d4;
+    color: white;
+  }
+  
+  .time-slot:hover {
+    background-color: lightgray;
+    color: white;
+  }
+
+
+  
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .field {
+    flex: 0 0 calc(50% - 0.5rem); /* 50% width minus half the gap for two columns */
+    min-width: 0;
+  }
+  
+  .form-field {
+    width: 100%;
+  }
+  
+  .input-icon-left {
+    width: 100%;
+  }
+  
+  /* Responsive design for mobile screens */
+  @media (max-width: 768px) {
+    .field {
+      flex: 0 0 100%; /* Full width for single column on mobile */
+    }
+  }
+
+  .m-left-10 {
+    margin-left: 10px;
+  }

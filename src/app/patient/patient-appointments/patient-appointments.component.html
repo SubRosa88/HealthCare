@@ -1,216 +1,265 @@
+<p-stepper [value]="currentStep" class="max-w-[50rem] mx-auto">
+  <p-step-list>
+    <p-step [value]="1">Médico | Especialidade</p-step>
+    <p-step [value]="2">Data | Hora</p-step>
+    <p-step [value]="3">Resumo</p-step>
+  </p-step-list>
 
-      <p-stepper [value]="1" class="basis-[50rem]">
-        <p-step-list>
-          <p-step [value]="1">Médico | Especialidade</p-step>
-          <p-step [value]="2">Data | Hora</p-step>
-          <p-step [value]="3">Resumo</p-step>
-        </p-step-list>
+  <p-step-panels>
+    <!-- STEP 1: Médico e Especialidade -->
+    <p-step-panel [value]="1">
+      <ng-template #content let-activateCallback="activateCallback">
+        <div class="flex flex-col p-4">
+          <div class="flex flex-col md:flex-row gap-4 mb-6 w-full">
+            <!-- Médico -->
+            <div class="flex-1 min-w-0">
+              <label for="medico" class="block font-medium mb-2">Médico</label>
+              <p-autocomplete
+                id="medico"
+                [(ngModel)]="medicoValue"
+                [dropdown]="true"
+                [suggestions]="medicoItems"
+                (completeMethod)="searchMedico($event)"
+                placeholder="Digite o nome do médico"
+                class="w-full"
+              ></p-autocomplete>
+            </div>
+            <!-- Especialidade -->
+            <div class="flex-1 min-w-0">
+              <label for="especialidade" class="block font-medium mb-2">Especialidade</label>
+              <p-autocomplete
+                id="especialidade"
+                [(ngModel)]="especialidadeValue"
+                [dropdown]="true"
+                [suggestions]="especialidadeItems"
+                (completeMethod)="searchEspecialidade($event)"
+                placeholder="Digite a especialidade"
+                class="w-full"
+              ></p-autocomplete>
+            </div>
+          </div>
+          <br/>
+          <div style="display:flex; flex-direction: row-reverse;">
+            <p-button
+              label="Next"
+              icon="pi pi-arrow-right"
+              iconPos="right"
+              (onClick)="nextStep(2, activateCallback)"
+              [disabled]="!medicoValue || !especialidadeValue"
+            ></p-button>
+          </div>
+        </div>
+      </ng-template>
+    </p-step-panel>
 
-        <p-step-panels>
-          <!-- STEP 1 -->
-          <p-step-panel [value]="1">
-            <ng-template #content let-activateCallback="activateCallback">
-              <div class="flex flex-col">
-                <!-- MÉDICO -->
-                <div
-                  class="border-2 border-dashed border-surface-200 dark:border-surface-700
-                         rounded bg-surface-50 dark:bg-surface-950 flex-auto
-                         flex justify-center items-center font-medium"
-                  style="
-                    margin-left: 2rem;
-                    margin-right: 2rem;
-                    display: inline-grid;
-                    grid-auto-flow: column;
-                    gap: 2rem;
-                    align-items: center;
-                    justify-items: center;
-                    margin-bottom: 3rem;
-                  "
-                >
-                  <span class="mr-2">Médico</span>
-                  <p-autocomplete
-                    [(ngModel)]="medicoValue"
-                    [dropdown]="true"
-                    [suggestions]="medicoItems"
-                    (completeMethod)="searchMedico($event)"
-                    placeholder="Digite o nome do médico"
-                  ></p-autocomplete>
-                </div>
+    <!-- STEP 2: Data e Hora -->
+    <p-step-panel [value]="2">
+      <ng-template #content let-activateCallback="activateCallback">
+        <div class="flex flex-col p-4">
+          <!-- Disabled Recap -->
+          <div class="flex flex-col md:flex-row gap-4 mb-6 w-full">
+             <!-- Médico -->
+             <div class="flex-1 min-w-0">
+            <div class="form-field">
+              <p-floatlabel variant="on">
+                <input
+                  pInputText
+                  id="medic"
+                  name="medic"
+                  [(ngModel)]="medicoValue"
+                  [readonly]="true"
+                  class="p-inputtext-icon-left"
+                />
+                <i class="pi pi-phone p-input-icon"></i>
+                <label for="medic">Médico</label>
+              </p-floatlabel>
+            </div>
+            </div>
+            
+            <!-- Especialidade -->
 
-                <!-- ESPECIALIDADE -->
-                <div
-                  class="border-2 border-dashed border-surface-200 dark:border-surface-700
-                         rounded bg-surface-50 dark:bg-surface-950 flex-auto
-                         flex justify-center items-center font-medium"
-                  style="
-                    margin-left: 2rem;
-                    display: inline-grid;
-                    grid-auto-flow: column;
-                    gap: 2rem;
-                    align-items: center;
-                    justify-items: center;
-                    margin-bottom: 1rem;
-                  "
-                >
-                  <span class="mr-2">Especialidade</span>
-                  <p-autocomplete
+            <div class="flex-1 min-w-0">
+              <div class="form-field">
+                <p-floatlabel variant="on">
+                  <input
+                    pInputText
+                    id="especialidade"
+                    name="especialidade"
                     [(ngModel)]="especialidadeValue"
-                    [dropdown]="true"
-                    [suggestions]="especialidadeItems"
-                    (completeMethod)="searchEspecialidade($event)"
-                    placeholder="Digite a especialidade"
-                  ></p-autocomplete>
-                </div>
-
-
-                <!-- NEXT BUTTON -->
-                <div class="flex pt-6 justify-end">
-                  <p-button
-                    label="Next"
-                    icon="pi pi-arrow-right"
-                    iconPos="right"
-                    (onClick)="activateCallback(2)"
-                  ></p-button>
-                </div>
+                    [readonly]="true"
+                    class="p-inputtext-icon-left"
+                  />
+                  <i class="pi pi-phone p-input-icon"></i>
+                  <label for="especialidade">Especialidade</label>
+                </p-floatlabel>
               </div>
-            </ng-template>
-          </p-step-panel>
+              </div>        
+          </div>
 
-          <!-- STEP 2 -->
-          <p-step-panel [value]="2">
-            <ng-template #content let-activateCallback="activateCallback">
-              <div class="flex flex-col">
-                <!-- Container with Two Columns -->
-                <div
-                  class="two-column-container border-2 border-dashed border-gray-200 dark:border-gray-600 rounded bg-surface-50 dark:bg-surface-950 p-6 mx-4 mb-4 w-full"
-                >
-                  <!-- Left Column: Outputs (Recap) -->
-                  <div class="left-column flex flex-col gap-4 w-1/2"
-                       style="
-                        margin-left: 4rem;
-                        margin-right: 0rem;
-                        margin-top: 4rem;
-                       ">
-                              
-                    <div>
-                      <p class="font-medium mb-1">Médico e Especialidade:</p>
-                      <p><strong>Médico:</strong> {{ medicoValue || 'N/A' }}</p>
-                      <p><strong>Especialidade:</strong> {{ especialidadeValue || 'N/A' }}</p>
-                    </div>
-                    <div>
-                      <p class="font-medium mb-1">Data e Hora Selecionadas:</p>
-                      <p><strong>Data:</strong> {{ date ? (date | date: 'dd/MM/yyyy') : 'N/A' }}</p>
-                      <p><strong>Horário:</strong> {{ selectedTime || 'N/A' }}</p>
-                    </div>
-                  </div>
-          
-                  <!-- Right Column: Calendar and 6x3 Time Slots Grid -->
-                  <div class="right-column flex flex-col gap-4 w-1/2">
-                    <!-- Calendar -->
-                    <div>
-                      <p-datepicker
-                        [(ngModel)]="date"
-                        [inline]="true"
-                        [showWeek]="true"
-                        [minDate]="minDate"
-                        class="w-full"
-                        [style]="{ 'max-width': '100%' }"
-                      ></p-datepicker>
-                    </div>
-          
-                    <!-- 6x3 Time Slots Grid -->
-                    <div>
-                      <div class="grid grid-cols-6 gap-2">
-                        <button
-                          *ngFor="let time of timeSlots"
-                          [ngClass]="{
-                            'time-slot': true,
-                            'selected': selectedTime === time
-                          }"
-                          class="p-1 rounded h-[30px] text-xs transition-colors duration-200 w-full"
-                          (click)="selectedTime = time"
-                        >
-                          {{ time }}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-          
-                <!-- Navigation Buttons -->
-                <div class="flex pt-6 justify-between mx-4">
-                  <p-button
-                    label="Back"
-                    icon="pi pi-arrow-left"
-                    (onClick)="activateCallback(1)"
-                  ></p-button>
-                  <p-button
-                    label="Next"
-                    icon="pi pi-arrow-right"
-                    iconPos="right"
-                    (onClick)="activateCallback(3)"
-                  ></p-button>
-                </div>
+          <p-divider />
+
+          <!-- Calendar and Time Slots -->
+          <div class="container">
+            <div class="row">
+              <!-- Calendar -->
+              <div class="field">
+                <div class="form-field">
+              <p-datepicker
+                [(ngModel)]="date"
+                [inline]="true"
+                [showWeek]="true"
+                [minDate]="minDate"
+                class="w-full custom-datepicker"
+                [style]="{ 'max-width': '100%' }"
+              ></p-datepicker>
+            </div>
               </div>
-            </ng-template>
-          </p-step-panel>
+            
+            <!-- Time Slots -->
+            <div class="field">
+              <div class="form-field">
+                <div class="time-slots-container">
+    
+                <span
+                  *ngFor="let time of timeSlots"
+                  [ngClass]="{
+                    'time-slot': true,
+                    'time-slot-selected': selectedTime === time
+                  }"
+                  (click)="selectTime(time)"
+                  class="time-slot-span"
+                >{{ time }}</span>
+            
+              </div></div></div>
+            </div>
+              
+          </div>  
+          <!-- Navigation -->
+          <br/>
+          <div style="display:flex; flex-direction: row-reverse;">
+            <p-button class="m-left-10"
+              label="Next"
+              icon="pi pi-arrow-right"
+              (onClick)="nextStep(3, activateCallback)"
+              [disabled]="!date || !selectedTime"
+            ></p-button>
+            <p-button class="m-left-10"
+              label="Back"
+              icon="pi pi-arrow-left"
+              (onClick)="activateCallback(1)"
+            ></p-button>
+            
+          </div>
+        </div>
+      </ng-template>
+    </p-step-panel>
 
-          <!-- STEP 3 -->
-          <p-step-panel [value]="3">
-            <ng-template #content let-activateCallback="activateCallback">
-              <div class="flex flex-col">
-                <div class="flex gap-4 w-full items-start justify-center">
-                  <!-- Resumo Box -->
-                  <p-card [ngClass]="'flex-1'" [ngStyle]="{ 'min-height': '150px' }">
-                    <ng-container header>Resumo</ng-container>
-                    <ul class="list-none p-0 m-0">
-                      <li>
-                        <strong>Médico:</strong> {{ medicoValue }}
-                      </li>
-                      <li>
-                        <strong>Especialidade:</strong> {{ especialidadeValue }}
-                      </li>
-                      <li>
-                        <strong>Data:</strong> {{ date | date: 'dd/MM/yyyy' }}
-                      </li>
-                      <li>
-                        <strong>Horário:</strong> {{ selectedTime }}
-                      </li>
-                    </ul>
-                    <p class="m-0">
-                      Notas:
-                      {{ notes }}
-                    </p>
-                  </p-card>
-
-                  <!-- Notes Box -->
-                  <div class="flex-1 flex flex-col" [ngStyle]="{ 'min-width': '300px' }">
-                    <label for="notes" class="font-medium mb-2">
-                      Notas (opcional)
-                    </label>
-                    <textarea
-                      id="notes"
-                      class="border border-gray-300 rounded p-2 w-full h-32"
-                      [(ngModel)]="notes"
-                    ></textarea>
-                  </div>
-                </div>
-
-                <div class="flex pt-6 justify-between">
-                  <p-button
-                    label="Back"
-                    icon="pi pi-arrow-left"
-                    (onClick)="activateCallback(2)"
-                  ></p-button>
-                  <p-button
-                    label="Submit"
-                    icon="pi pi-check"
-                    iconPos="right"
-                    (onClick)="submitForm()"
-                  ></p-button>
-                </div>
+    <!-- STEP 3: Resumo -->
+    <p-step-panel [value]="3">
+      <ng-template #content let-activateCallback="activateCallback">
+        <div class="container">
+          <div class="row">
+            <!-- Médico -->
+            <div class="field">
+              <div class="form-field">
+                <p-floatlabel variant="on">
+                  <input
+                    pInputText
+                    id="medic"
+                    name="medic"
+                    [(ngModel)]="medicoValue"
+                    [readonly]="true"
+                    class="input-icon-left"
+                  />
+                  <i class="pi pi-user p-input-icon"></i>
+                  <label for="medic">Médico</label>
+                </p-floatlabel>
               </div>
-            </ng-template>
-          </p-step-panel>
-        </p-step-panels>
-      </p-stepper>
+            </div>
+        
+            <!-- Especialidade -->
+            <div class="field">
+              <div class="form-field">
+                <p-floatlabel variant="on">
+                  <input
+                    pInputText
+                    id="especialidade"
+                    name="especialidade"
+                    [(ngModel)]="especialidadeValue"
+                    [readonly]="true"
+                    class="input-icon-left"
+                  />
+                  <i class="pi pi-briefcase p-input-icon"></i>
+                  <label for="especialidade">Especialidade</label>
+                </p-floatlabel>
+              </div>
+            </div>
+        
+            <!-- Data -->
+            <div class="field">
+              <div class="form-field">
+                <p-floatlabel variant="on">
+                  <input
+                    pInputText
+                    id="appointmentDate"
+                    name="appointmentDate"
+                    [(ngModel)]="date"
+                    [readonly]="true"
+                    class="input-icon-left"
+                  />
+                  <i class="pi pi-calendar p-input-icon"></i>
+                  <label for="appointmentDate">Data</label>
+                </p-floatlabel>
+              </div>
+            </div>
+        
+            <!-- Hora -->
+            <div class="field">
+              <div class="form-field">
+                <p-floatlabel variant="on">
+                  <input
+                    pInputText
+                    id="appointmentHour"
+                    name="appointmentHour"
+                    [(ngModel)]="selectedTime"
+                    [readonly]="true"
+                    class="input-icon-left"
+                  />
+                  <i class="pi pi-clock p-input-icon"></i>
+                  <label for="appointmentHour">Hora</label>
+                </p-floatlabel>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p-divider align="left" type="solid">
+          <b>Informação Médica Adicional</b>
+        </p-divider>
+
+            <!-- Notes -->
+            <div class="flex-1">
+              <p-floatlabel variant="on">
+                <textarea pTextarea id="over_label" [(ngModel)]="notes" rows="4" cols="30" style="width: 100%; resize: vertical" placeholder="Descreva informação relevante para a sua consulta"></textarea>
+              
+            </p-floatlabel>
+            </div>
+
+          <br/>
+          <div style="display:flex; flex-direction: row-reverse;">
+            <p-button class="m-left-10"
+              label="Submit"
+              icon="pi pi-check"
+              (onClick)="submitForm()"
+            ></p-button>
+            <p-button class="m-left-10"
+              label="Back"
+              icon="pi pi-arrow-left"
+              (onClick)="activateCallback(2)"
+            ></p-button>
+            
+          </div>
+      </ng-template>
+    </p-step-panel>
+  </p-step-panels>
+</p-stepper>

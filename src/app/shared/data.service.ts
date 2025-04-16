@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 export interface User { id: string; name: string; email: string; roles: string[]; status: 'active' | 'inactive' | 'pending'; }
-export interface Doctor { id: string; workHoursStart?: string; workHoursEnd?: string; name: string; availability: 'static' | 'dynamic'; specialty: string; status: 'active' | 'inactive' | 'pending'; publicBio: string; privateNotes?: string; licenseUrl?: string; }
+export interface Doctor { id: string; workHoursStart?: string; workHoursEnd?: string; name: string; availability: 'static' | 'dynamic'; specialty: string; status: 'active' | 'inactive' | 'pending'; publicBio: string; privateNotes?: string; licenseUrl?: string; license: string }
 export interface Appointment { id: string; patientId: string; doctorId: string; date: string; time: string; status: 'pending' | 'completed'; }
 export interface MedicalEvent { date: string; title: string; details: string; uploads?: string[]; }
 export interface TimeSlot { start: string; end: string; }
@@ -11,8 +11,8 @@ export interface TimeSlot { start: string; end: string; }
 export class DataService {
   private currentUser: User = { id: '1', name: 'Jane Doe', email: 'jane@example.com', roles: ['patient', 'doctor', 'admin'], status: 'pending'  };
   private doctors: Doctor[] = [
-    { id: 'd1', name: 'Dr. Smith', availability: 'static', workHoursStart: '09:00', workHoursEnd: '18:00', specialty: 'Cardiology', status: 'active', publicBio: '20 years experience', privateNotes: 'Prefers mornings', licenseUrl: 'license1.jpg' },
-    { id: 'd2', name: 'Dr. Jones', availability: 'dynamic', specialty: 'Pediatrics', status: 'pending', publicBio: 'New grad', privateNotes: '', licenseUrl: 'license2.pdf' },
+    { id: 'd1', name: 'Dr. Smith', availability: 'static', workHoursStart: '09:00', workHoursEnd: '18:00', specialty: 'Cardiology', status: 'active', publicBio: '20 years experience', privateNotes: 'Prefers mornings', licenseUrl: 'license1.jpg', license: 'M-987654' },
+    { id: 'd2', name: 'Dr. Jones', availability: 'dynamic', specialty: 'Pediatrics', status: 'pending', publicBio: 'New grad', privateNotes: '', licenseUrl: 'license2.pdf', license: 'M-123456' },
   ];
 
   private timeslots: TimeSlot[] = [  {start:'08:00', end:'08:30'}, {start:'09:00', end:'09:30'}, {start:'10:00', end:'10:30'},

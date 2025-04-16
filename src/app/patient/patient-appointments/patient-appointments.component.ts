@@ -15,6 +15,8 @@ import { StepperModule } from 'primeng/stepper';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { DatePickerModule } from 'primeng/datepicker';
+import { DividerModule } from 'primeng/divider';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
   selector: 'app-patient-appointments',
@@ -30,7 +32,9 @@ import { DatePickerModule } from 'primeng/datepicker';
     StepperModule,
     AutoCompleteModule,
     CalendarModule,
-    DatePickerModule
+    DatePickerModule,
+    DividerModule,
+    FloatLabelModule,
     // Add more PrimeNG modules as needed
   ],
   templateUrl: './patient-appointments.component.html',
@@ -40,6 +44,8 @@ export class PatientAppointmentsComponent implements OnInit {
   user: any;
   appointments$!: Observable<Appointment[]>;
   doctors: Doctor[] = [];
+
+  currentStep: number = 1;  
 
   // Separate fields for Médico and Especialidade
   medicoValue: string = '';
@@ -103,6 +109,10 @@ export class PatientAppointmentsComponent implements OnInit {
       .filter(especialidade => especialidade.toLowerCase().includes(query));
   }
 
+  selectTime(time: string) {
+    this.selectedTime = time;
+  }
+
   generateTimeSlots(): void {
     const slots: string[] = [];
     let hour = 9;
@@ -123,6 +133,11 @@ export class PatientAppointmentsComponent implements OnInit {
     }
     // Limit if desired; example slices to 18 total slots
     this.timeSlots = slots.slice(0, 18);
+  }
+
+  nextStep(step: number, activateCallback: (step: number) => void) {
+    this.currentStep = step;
+    activateCallback(step);
   }
 
   // Submit new appointment
