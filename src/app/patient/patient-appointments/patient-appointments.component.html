@@ -10,34 +10,78 @@
     <p-step-panel [value]="1">
       <ng-template #content let-activateCallback="activateCallback">
         <div class="flex flex-col p-4">
-          <div class="flex flex-col md:flex-row gap-4 mb-6 w-full">
-            <!-- Médico -->
-            <div class="flex-1 min-w-0">
-              <label for="medico" class="block font-medium mb-2">Médico</label>
-              <p-autocomplete
-                id="medico"
-                [(ngModel)]="medicoValue"
+          <div class="container">
+            <div class="row">
+          <!-- First Row -->
+          <div class="flex flex-col md:flex-row md:gap-6 space-y-4 md:space-y-0 w-full">
+
+            <!-- Distrito -->
+            <div class="flex-1 w-full">
+              <p-floatlabel variant="on">
+                <p-autocomplete
+                id="distrito"
+                [(ngModel)]="distritoValue"
                 [dropdown]="true"
-                [suggestions]="medicoItems"
-                (completeMethod)="searchMedico($event)"
-                placeholder="Digite o nome do médico"
+                [suggestions]="distritoItems"
+                (completeMethod)="searchDistrito($event)"
                 class="w-full"
-              ></p-autocomplete>
+                ></p-autocomplete>
+                <label for="medic">Distrito</label>
+              </p-floatlabel>
             </div>
+
+            <!-- Concelho -->
+            <div class="flex-1 w-full">
+              <p-floatlabel variant="on">
+                <p-autocomplete
+                id="concelho"
+                [(ngModel)]="concelhoValue"
+                [dropdown]="true"
+                [suggestions]="concelhoItems"
+                (completeMethod)="searchConcelho($event)"
+                class="w-full"
+                ></p-autocomplete>
+                <label for="medic">Concelho</label>
+              </p-floatlabel>
+            </div>
+          </div>
+
+
+          <!-- Second Row -->
+          <div class="flex flex-col md:flex-row md:gap-6 space-y-4 md:space-y-0 w-full">
+            <!-- Médico -->
+            <div class="flex-1 w-full">
+              <p-floatlabel variant="on">
+                <p-autocomplete
+                  id="medico"
+                  name="medico"
+                  [(ngModel)]="medicoValue"
+                  [dropdown]="true"
+                  [suggestions]="medicoItems"
+                  (completeMethod)="searchMedico($event)"
+                  class="w-full"
+                ></p-autocomplete>
+                <label for="medic">Médico</label>
+              </p-floatlabel>
+            </div>
+
             <!-- Especialidade -->
-            <div class="flex-1 min-w-0">
-              <label for="especialidade" class="block font-medium mb-2">Especialidade</label>
-              <p-autocomplete
+            <div class="flex-1 w-full">
+              <p-floatlabel variant="on">
+                <p-autocomplete
                 id="especialidade"
                 [(ngModel)]="especialidadeValue"
                 [dropdown]="true"
                 [suggestions]="especialidadeItems"
                 (completeMethod)="searchEspecialidade($event)"
-                placeholder="Digite a especialidade"
                 class="w-full"
-              ></p-autocomplete>
+                ></p-autocomplete>
+                <label for="medic">Especialidade</label>
+              </p-floatlabel>
             </div>
           </div>
+            </div></div>
+
           <br/>
           <div style="display:flex; flex-direction: row-reverse;">
             <p-button
@@ -52,32 +96,75 @@
       </ng-template>
     </p-step-panel>
 
-    <!-- STEP 2: Data e Hora -->
-    <p-step-panel [value]="2">
-      <ng-template #content let-activateCallback="activateCallback">
-        <div class="flex flex-col p-4">
-          <!-- Disabled Recap -->
-          <div class="flex flex-col md:flex-row gap-4 mb-6 w-full">
-             <!-- Médico -->
-             <div class="flex-1 min-w-0">
-            <div class="form-field">
-              <p-floatlabel variant="on">
-                <input
-                  pInputText
-                  id="medic"
-                  name="medic"
-                  [(ngModel)]="medicoValue"
-                  [readonly]="true"
-                  class="p-inputtext-icon-left"
-                />
-                <i class="pi pi-phone p-input-icon"></i>
-                <label for="medic">Médico</label>
-              </p-floatlabel>
-            </div>
-            </div>
-            
-            <!-- Especialidade -->
+        <!-- STEP 2: Data e Hora -->
+      <p-step-panel [value]="2">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="flex flex-col p-4">
+            <div class="container">
+              <div class="row">
+          <!-- First Row -->
+          <div class="flex flex-col md:flex-row md:gap-6 space-y-4 md:space-y-0 w-full">
+            <!-- Distrito -->
+            <div class="flex-1 min-w-0">
+              <div class="form-field">
+                <p-floatlabel variant="on">
+                  <input
+                    pInputText
+                    id="distrito"
+                    name="distrito"
+                    [(ngModel)]="distritoValue"
+                    [readonly]="true"
+                    class="w-full"
+                  />
+                  <i class="pi pi-phone p-input-icon"></i>
+                  <label for="concelho">Distrito</label>
+                  </p-floatlabel>
+              </div>
+              </div>
 
+
+            <!-- Concelho -->
+            <div class="flex-1 min-w-0">
+              <div class="form-field">
+                <p-floatlabel variant="on">
+                  <input
+                    pInputText
+                    id="concelho"
+                    name="concelho"
+                    [(ngModel)]="concelhoValue"
+                    [readonly]="true"
+                    class="w-full"
+                    />
+                    <i class="pi pi-phone p-input-icon"></i>
+                    <label for="concelho">Concelho</label>
+                    </p-floatlabel>
+                </div>
+                </div>
+
+
+          </div>
+
+          <!-- Second Row -->
+          <div class="flex flex-col md:flex-row md:gap-6 space-y-4 md:space-y-0 w-full">
+            <!-- Médico -->
+            <div class="flex-1 min-w-0">
+              <div class="form-field">
+                <p-floatlabel variant="on">
+                  <input
+                    pInputText
+                    id="medic"
+                    name="medic"
+                    [(ngModel)]="medicoValue"
+                    [readonly]="true"
+                    class="p-inputtext-icon-left"
+                  />
+                  <i class="pi pi-phone p-input-icon"></i>
+                  <label for="medic">Médico</label>
+                </p-floatlabel>
+            </div>
+            </div>
+
+            <!-- Especialidade -->
             <div class="flex-1 min-w-0">
               <div class="form-field">
                 <p-floatlabel variant="on">
@@ -93,10 +180,11 @@
                   <label for="especialidade">Especialidade</label>
                 </p-floatlabel>
               </div>
-              </div>        
-          </div>
+              </div>
+          </div></div></div>
 
-          <p-divider />
+
+          <p-divider></p-divider>
 
           <!-- Calendar and Time Slots -->
           <div class="container">
@@ -114,12 +202,12 @@
               ></p-datepicker>
             </div>
               </div>
-            
+
             <!-- Time Slots -->
             <div class="field">
               <div class="form-field">
                 <div class="time-slots-container">
-    
+
                 <span
                   *ngFor="let time of timeSlots"
                   [ngClass]="{
@@ -129,11 +217,11 @@
                   (click)="selectTime(time)"
                   class="time-slot-span"
                 >{{ time }}</span>
-            
+
               </div></div></div>
             </div>
-              
-          </div>  
+
+          </div>
           <!-- Navigation -->
           <br/>
           <div style="display:flex; flex-direction: row-reverse;">
@@ -148,19 +236,58 @@
               icon="pi pi-arrow-left"
               (onClick)="activateCallback(1)"
             ></p-button>
-            
+
           </div>
         </div>
       </ng-template>
     </p-step-panel>
 
-    <!-- STEP 3: Resumo -->
-    <p-step-panel [value]="3">
-      <ng-template #content let-activateCallback="activateCallback">
-        <div class="container">
-          <div class="row">
+        <!-- STEP 3: Resumo -->
+        <p-step-panel [value]="3">
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="container">
+              <div class="row">
+                <!-- Distrito -->
+                <div class="flex-1 min-w-0">
+                  <div class="form-field">
+                    <p-floatlabel variant="on">
+                      <input
+                        pInputText
+                        id="distrito"
+                        name="distrito"
+                        [(ngModel)]="distritoValue"
+                        [readonly]="true"
+                        class="w-full"
+                      />
+                      <i class="pi pi-phone p-input-icon"></i>
+                      <label for="concelho">Distrito</label>
+                      </p-floatlabel>
+                </div>
+              </div>
+
+              <!-- Concelho -->
+              <div class="flex-1 min-w-0">
+                <div class="form-field">
+                  <p-floatlabel variant="on">
+                    <input
+                      pInputText
+                      id="concelho"
+                      name="concelho"
+                      [(ngModel)]="concelhoValue"
+                      [readonly]="true"
+                      class="w-full"
+                      />
+                      <i class="pi pi-phone p-input-icon"></i>
+                      <label for="concelho">Concelho</label>
+                      </p-floatlabel>
+                </div>
+              </div>
+
+
+          <!-- Second Row -->
+          <div class="flex flex-col md:flex-row md:gap-6 space-y-4 md:space-y-0 w-full">
             <!-- Médico -->
-            <div class="field">
+            <div class="flex-1 min-w-0">
               <div class="form-field">
                 <p-floatlabel variant="on">
                   <input
@@ -176,9 +303,9 @@
                 </p-floatlabel>
               </div>
             </div>
-        
+
             <!-- Especialidade -->
-            <div class="field">
+            <div class="flex-1 min-w-0">
               <div class="form-field">
                 <p-floatlabel variant="on">
                   <input
@@ -193,10 +320,12 @@
                   <label for="especialidade">Especialidade</label>
                 </p-floatlabel>
               </div>
-            </div>
-        
+          </div></div>
+
+          <!-- Third Row -->
+
             <!-- Data -->
-            <div class="field">
+            <div class="flex-1 min-w-0">
               <div class="form-field">
                 <p-floatlabel variant="on">
                   <input
@@ -212,25 +341,25 @@
                 </p-floatlabel>
               </div>
             </div>
-        
+
             <!-- Hora -->
-            <div class="field">
+            <div class="flex-1 min-w-0">
               <div class="form-field">
-                <p-floatlabel variant="on">
-                  <input
-                    pInputText
-                    id="appointmentHour"
-                    name="appointmentHour"
-                    [(ngModel)]="selectedTime"
-                    [readonly]="true"
-                    class="input-icon-left"
-                  />
-                  <i class="pi pi-clock p-input-icon"></i>
-                  <label for="appointmentHour">Hora</label>
-                </p-floatlabel>
-              </div>
-            </div>
-          </div>
+              <p-floatlabel variant="on">
+                <input
+                  pInputText
+                  id="appointmentHour"
+                  name="appointmentHour"
+                  [(ngModel)]="selectedTime"
+                  [readonly]="true"
+                  class="input-icon-left"
+                />
+                <i class="pi pi-clock p-input-icon"></i>
+                <label for="appointmentHour">Hora</label>
+              </p-floatlabel>
+             </div>
+          </div></div>
+
         </div>
 
         <p-divider align="left" type="solid">
@@ -241,7 +370,7 @@
             <div class="flex-1">
               <p-floatlabel variant="on">
                 <textarea pTextarea id="over_label" [(ngModel)]="notes" rows="4" cols="30" style="width: 100%; resize: vertical" placeholder="Descreva informação relevante para a sua consulta"></textarea>
-              
+
             </p-floatlabel>
             </div>
 
@@ -257,7 +386,7 @@
               icon="pi pi-arrow-left"
               (onClick)="activateCallback(2)"
             ></p-button>
-            
+
           </div>
       </ng-template>
     </p-step-panel>

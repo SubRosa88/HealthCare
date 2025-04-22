@@ -17,6 +17,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { DatePickerModule } from 'primeng/datepicker';
 import { DividerModule } from 'primeng/divider';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { DistrictConselhoService } from '../../shared/district-conselho.service';
 
 @Component({
   selector: 'app-patient-appointments',
@@ -45,7 +46,7 @@ export class PatientAppointmentsComponent implements OnInit {
   appointments$!: Observable<Appointment[]>;
   doctors: Doctor[] = [];
 
-  currentStep: number = 1;  
+  currentStep: number = 1;
 
   // Separate fields for Médico and Especialidade
   medicoValue: string = '';
@@ -53,6 +54,12 @@ export class PatientAppointmentsComponent implements OnInit {
 
   especialidadeValue: string = '';
   especialidadeItems: string[] = [];
+
+  concelhoValue: string = '';
+  concelhoItems: string[] = [];
+
+  distritoValue: string = '';
+  distritoItems: string[] = [];
 
   // Notes
   notes: string = '';
@@ -69,7 +76,7 @@ export class PatientAppointmentsComponent implements OnInit {
   ]; // 18 slots for 6x3 grid
 
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private dst: DistrictConselhoService) {
     // Example: date range from tomorrow to +1 month
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -99,6 +106,21 @@ export class PatientAppointmentsComponent implements OnInit {
       .getDoctors()
       .map(doctor => doctor.name)
       .filter(name => name.toLowerCase().includes(query));
+  }
+
+  searchDistrito(event: any): void {
+    const query = event.query.toLowerCase();
+    this.distritoItems = this.dst
+      .getDistritos()
+      .filter(distrito => distrito.toLowerCase().includes(query));
+  }
+
+  searchConcelho(event: any): void {
+    const query = event.query.toLowerCase();
+    this.concelhoItems = this.dst
+      .getConcelhosByDistrito(this.distritoValue)
+      .map(concelho => concelho.nome)
+      .filter(concelho => concelho.toLowerCase().includes(query));
   }
 
   searchEspecialidade(event: any): void {
