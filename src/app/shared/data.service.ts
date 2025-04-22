@@ -27,6 +27,8 @@ export class DataService {
     { date: '2024-01-15', title: 'Flu Shot', details: 'No side effects' },
   ];
 
+
+
   private doctorsSubject = new BehaviorSubject<Doctor[]>(this.doctors);
   private appointmentsSubject = new BehaviorSubject<Appointment[]>(this.appointments);
   private medicalHistorySubject = new BehaviorSubject<MedicalEvent[]>(this.medicalHistory);

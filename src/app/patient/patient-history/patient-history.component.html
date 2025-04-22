@@ -1,24 +1,44 @@
+<h2 style="display: flex; justify-content: center;"> Histórico Pessoal</h2>
+        <p-timeline [value]="events">
+            <ng-template class="fit-content" pTemplate="content" let-event>
+                <p-card [header]="event.title" [subheader]="this.buildSubtitle(event.date, event.subtitle, event.where)">
 
-    <div style="display: flex;">
-      <!-- Container 1 -->
-      <div style="flex: 1;">
-        <!-- Optional content for container 1 -->
-      </div>
-      
-      <!-- Container 2 (bigger) -->
-      <div style="flex: 3;">
-        <p-card header="Medical History">
-          <p-accordion>
-            <p-accordionTab *ngFor="let event of medicalHistory$ | async" [header]="event.date + ': ' + event.title">
-              <p>{{ event.details }}</p>
-              <p *ngIf="event.uploads">Uploads: {{ event.uploads.join(', ') }}</p>
-            </p-accordionTab>
-          </p-accordion>
-        </p-card>
-      </div>
-      
-      <!-- Container 3 -->
-      <div style="flex: 1;">
-        <!-- Optional content for container 3 -->
-      </div>
-    </div>
+                    <p-accordion [activeIndex]="0">
+                        <p-accordionTab header="Descrição">
+                            <p>
+                                {{event.description}}
+                            </p>
+                        </p-accordionTab>
+                        <p-accordionTab header="Medicação">
+                          <p>
+                              {{event.notes}}
+                          </p>
+                        </p-accordionTab>
+                        <p-accordionTab header="Notas">
+                            <p>
+                                {{event.notes}}
+                            </p>
+                        </p-accordionTab>
+                        <p-accordionTab class="badge-visible" header="Anexos" pBadge value="{{event.files.length}}" badgeSize="large">
+                            <p-fileUpload
+                                mode="basic"
+                                name="demo[]"
+                                chooseIcon="pi pi-upload"
+                                [multiple]="true"
+                                url="https://www.primefaces.org/cdn/api/upload.php"
+                                accept="image/*" maxFileSize="1000000"
+                                (onUpload)="onBasicUploadAuto(event.id ,$event)"
+                                [auto]="true"
+                                chooseLabel="Browse" />
+
+                                    <p></p>
+                                  <li *ngFor="let file of event.files; index as i;">{{file.name}}</li>
+                        </p-accordionTab>
+                    </p-accordion>
+                    <p-button label="Read more" [text]="true" />
+                </p-card>
+            </ng-template>
+            <ng-template class="fit-opposite" pTemplate="opposite" let-event>
+                {{ event.date | date:'MM/yyyy'}}
+            </ng-template>
+        </p-timeline>

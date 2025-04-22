@@ -1,3 +1,20 @@
-    p-card {
-      margin: 16px;
-    }
+
+textarea
+{
+  width:100%;
+}
+
+.p-timeline-event {
+    margin-top: 15px ;
+}
+
+.p-timeline-event-opposite {
+    flex: none !important;
+}
+.p-timeline-event-content {
+    flex: auto ;
+}
+
+.badge-visible {
+  overflow: visible;
+}
