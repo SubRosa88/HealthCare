@@ -10,6 +10,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { BadgeModule } from 'primeng/badge';
 import { TableModule } from 'primeng/table';
 import { MedicalEvent2 } from '../../interfaces/MedicalEvent';
+import { Medication } from '../../interfaces/MedicalEvent';
 
 
 @Component({
@@ -69,7 +70,14 @@ export class TimelineComponent {
         console.log('Medication new:', result);
       }
     });
+  }
 
-
+  removeMedication(event: MedicalEvent2, medication: Medication) {
+    if (event && event.medication) {
+      const index = event.medication.indexOf(medication);
+      if (index > -1) {
+        event.medication.splice(index, 1);
+      }
+    }
   }
 }
