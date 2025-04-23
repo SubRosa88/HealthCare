@@ -21,4 +21,6 @@ export interface MedicalEvent2 {
   notes: string;
   files: InputFile[];
   medication: Medication[];
+  medic?: string;
 }
+
