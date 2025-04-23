@@ -1,98 +1,75 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService, MedicalEvent } from '../../shared/data.service';
+import { Component } from '@angular/core';
+import { DialogService } from 'primeng/dynamicdialog';
+import { MedicationDialogComponent } from './medication-dialog.component';
+import { CommonModule } from '@angular/common';
+import { TimelineModule } from 'primeng/timeline';
 import { CardModule } from 'primeng/card';
 import { AccordionModule } from 'primeng/accordion';
-import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
-import { TimelineModule } from 'primeng/timeline';
-import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
-import { FileUploadEvent, FileUploadModule } from 'primeng/fileupload';
-import { format } from 'date-fns';
-
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
-
-import { PersonType } from '../../interfaces/PersonType';
-import { EventType } from '../../interfaces/EventType';
+import { FileUploadModule } from 'primeng/fileupload';
+import { BadgeModule } from 'primeng/badge';
+import { TableModule } from 'primeng/table';
+import { MedicalEvent2 } from '../../interfaces/MedicalEvent';
 
 
 @Component({
-  selector: 'app-patient-history',
+  selector: 'app-timeline',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
+    TimelineModule,
     CardModule,
     AccordionModule,
-    FileUploadModule,
-    TimelineModule,
-    BadgeModule,
     ButtonModule,
-    DynamicDialogModule],
+    FileUploadModule,
+    BadgeModule,
+    TableModule,
+  ],
   templateUrl: './patient-history.component.html',
   styleUrl: './patient-history.component.scss',
-
+  providers: [DialogService]
 })
-export class PatientHistoryComponent implements OnInit {
-  medicalHistory$!: Observable<MedicalEvent[]>;
-  constructor(private dataService: DataService) {}
 
-  ngOnInit(): void {
-    this.medicalHistory$ = this.dataService.medicalHistory$;
+export class TimelineComponent {
+  events : MedicalEvent2[] = [
+    {
+      id: 1,
+      title: 'Consulta Médica',
+      date: new Date('2023-05-15'),
+      subtitle: 'Check-up anual',
+      where: 'Clínica Central',
+      description: 'Consulta de rotina para exames gerais.',
+      notes: 'Tomar vacina contra gripe.',
+      files: [{ name: 'exame1.pdf' }, { name: 'exame2.jpg' }],
+      medication: [{ name: 'Paracetamol', dosage: '500mg', frequency: '8h', start: new Date(), end: new Date(), notes: "some notes" }]
+    }
+  ];
+
+  constructor(private dialogService: DialogService) {}
+
+  buildSubtitle(date: Date, subtitle: string, where: string): string {
+    return `${subtitle} - ${where}`;
   }
 
-
-  person: PersonType = {
-    name: "John Doe",
-    birth: "15-09-1981",
-    sex: 'Masculino',
-    height: 1.83,
-    weight: 81,
-    chips: ['Fumador', 'Perneta', 'Pele Atópica'],
-    alergies: ['Penincelina', 'Amendoins', 'Leite'],
-    notes: ["Doente toma medicação recorrente xxx"],
-    ensurance: "Multicare",
+  onBasicUploadAuto(eventId: number, event: any): void {
+    console.log(`Files uploaded for event ${eventId}:`, event.files);
   }
 
-  events: EventType[] = [{
-    id: 1,
-    date:  new Date("2019-01-16"),
-    type: "Consulta",
-    title: "Alergologia",
-    subtitle: "Despiste de Alergias",
-    description: "O paciente queixa-se de alergias e precisa de saber a que o pe pode comer or não",
-    where: "Hospital da Luz",
-    notes: "Não foi encontrada nenhuma alergia adicional relevante",
-    chips: [],
-    doctor: "Gomes de Sá",
-    expertise: "Alergologia",
-    files: []
-  },{
-    id: 2,
-    date:  new Date("2018-03-14"),
-    type: "Internamento",
-    title: "Acidente de Condução",
-    subtitle: "Despiste de Mota",
-    description: "Queda ligeira de mota, pequenas feridas, queimadura na perna, não houve fracturas.",
-    where: "Hospital da Faro",
-    notes: "Internamento 3 dias",
-    chips: ["Queimadura", ""],
-    doctor: "Pedro Lopes",
-    expertise: "Urgencias",
-    files: []
+  openMedicationDialog(event: MedicalEvent2): void {
+    const ref = this.dialogService.open(MedicationDialogComponent, {
+      header: 'Medication',
+      width: '30%',
+      contentStyle: { 'max-height': '500px', overflow: 'auto' },
+      data: { medication: event.medication || {} }
+    });
+
+    ref.onClose.subscribe((result) => {
+      if (result) {
+        event.medication.push(result)
+        console.log('Medication new:', result);
+      }
+    });
+
+
   }
-];
-
-
-buildSubtitle(date: Date, subtitle: string, where: string){
-  const formattedDate: string = format(date, 'dd/MM/yyyy');
-  return formattedDate + " - " + subtitle + " - " + where;
-}
-
-onBasicUploadAuto(event_id: number, files_event: FileUploadEvent) {
-  let current_event = this.events.filter(x => x.id === event_id).pop();
-  console.log(files_event.files.length);
-  if(current_event){
-    current_event.files = current_event.files.concat(files_event.files)
-    console.log(current_event?.files.length);
-  }
-}
 }

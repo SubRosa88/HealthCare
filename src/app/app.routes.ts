@@ -7,7 +7,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
       { path: 'profile', loadComponent: () => import('./patient/patient-profile/patient-profile.component').then(m => m.PatientProfileComponent) },
-      { path: 'history', loadComponent: () => import('./patient/patient-history/patient-history.component').then(m => m.PatientHistoryComponent) },
+      { path: 'history', loadComponent: () => import('./patient/patient-history/patient-history.component').then(m => m.TimelineComponent) },
       { path: 'appointments', loadComponent: () => import('./patient/patient-appointments/patient-appointments.component').then(m => m.PatientAppointmentsComponent) },
     ],
   },

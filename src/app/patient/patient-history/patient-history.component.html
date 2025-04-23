@@ -1,44 +1,47 @@
-<h2 style="display: flex; justify-content: center;"> Histórico Pessoal</h2>
-        <p-timeline [value]="events">
-            <ng-template class="fit-content" pTemplate="content" let-event>
-                <p-card [header]="event.title" [subheader]="this.buildSubtitle(event.date, event.subtitle, event.where)">
-
-                    <p-accordion [activeIndex]="0">
-                        <p-accordionTab header="Descrição">
-                            <p>
-                                {{event.description}}
-                            </p>
-                        </p-accordionTab>
-                        <p-accordionTab header="Medicação">
-                          <p>
-                              {{event.notes}}
-                          </p>
-                        </p-accordionTab>
-                        <p-accordionTab header="Notas">
-                            <p>
-                                {{event.notes}}
-                            </p>
-                        </p-accordionTab>
-                        <p-accordionTab class="badge-visible" header="Anexos" pBadge value="{{event.files.length}}" badgeSize="large">
-                            <p-fileUpload
-                                mode="basic"
-                                name="demo[]"
-                                chooseIcon="pi pi-upload"
-                                [multiple]="true"
-                                url="https://www.primefaces.org/cdn/api/upload.php"
-                                accept="image/*" maxFileSize="1000000"
-                                (onUpload)="onBasicUploadAuto(event.id ,$event)"
-                                [auto]="true"
-                                chooseLabel="Browse" />
-
-                                    <p></p>
-                                  <li *ngFor="let file of event.files; index as i;">{{file.name}}</li>
-                        </p-accordionTab>
-                    </p-accordion>
-                    <p-button label="Read more" [text]="true" />
-                </p-card>
+<h2 style="display: flex; justify-content: center;">Histórico Pessoal</h2>
+<p-timeline [value]="events">
+  <ng-template class="fit-content" pTemplate="content" let-event>
+    <p-card [header]="event.title" [subheader]="this.buildSubtitle(event.date, event.subtitle, event.where)">
+      <p-accordion [activeIndex]="0">
+        <p-accordionTab header="Descrição">
+          <p>
+            {{event.description}}
+          </p>
+        </p-accordionTab>
+        <p-accordionTab header="Medicação">
+          <p-table [value]="[event]" [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="body" let-event>
+              <tr>
+                <td>{{ event.notesmedication }}</td>
+              </tr>
             </ng-template>
-            <ng-template class="fit-opposite" pTemplate="opposite" let-event>
-                {{ event.date | date:'MM/yyyy'}}
-            </ng-template>
-        </p-timeline>
+          </p-table>
+          <p-button label="Add Medication" icon="pi pi-pencil" (click)="openMedicationDialog(event)" styleClass="p-mt-2"></p-button>
+        </p-accordionTab>
+        <p-accordionTab header="Notas">
+          <p>
+            {{event.notes}}
+          </p>
+        </p-accordionTab>
+        <p-accordionTab class="badge-visible" header="Anexos" pBadge value="{{event.files.length}}" badgeSize="large" badgeSeverity="info">
+          <p-fileUpload
+            mode="basic"
+            name="demo[]"
+            chooseIcon="pi pi-upload"
+            [multiple]="true"
+            url="https://www.primefaces.org/cdn/api/upload.php"
+            accept="image/*" maxFileSize="1000000"
+            (onUpload)="onBasicUploadAuto(event.id, $event)"
+            [auto]="true"
+            chooseLabel="Browse" />
+          <p></p>
+          <li *ngFor="let file of event.files; index as i;">{{file.name}}</li>
+        </p-accordionTab>
+      </p-accordion>
+      <p-button label="Read more" [text]="true" />
+    </p-card>
+  </ng-template>
+  <ng-template class="fit-opposite" pTemplate="opposite" let-event>
+    {{ event.date | date:'MM/yyyy'}}
+  </ng-template>
+</p-timeline>
