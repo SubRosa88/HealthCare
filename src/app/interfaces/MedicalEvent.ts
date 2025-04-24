@@ -22,5 +22,6 @@ export interface MedicalEvent2 {
   files: InputFile[];
   medication: Medication[];
   medic?: string;
+  locked: boolean
 }
 

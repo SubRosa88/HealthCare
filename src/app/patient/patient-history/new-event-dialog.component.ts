@@ -16,7 +16,6 @@ import { CommonModule } from '@angular/common';
   ],
   template: `
     <div class="p-fluid">
-      <h2>New Medical Event</h2>
       <form [formGroup]="medicalForm" (ngSubmit)="onSubmit()">
         <div class="p-field">
           <label for="where">Title</label>
@@ -37,14 +36,6 @@ import { CommonModule } from '@angular/common';
         <div class="p-field">
           <label for="subtitle">Appointment</label>
           <input id="subtitle" type="text" pInputText formControlName="subtitle" />
-        </div>
-        <div class="p-field">
-          <label for="description">Descrição</label>
-          <input id="description" type="text" pInputText formControlName="description" />
-        </div>
-        <div class="p-field">
-          <label for="notes">Notes</label>
-          <input id="notes" type="text" pInputText formControlName="notes" />
         </div>
         <div class="p-mt-4">
           <p-button label="Submit" type="submit" [disabled]="!medicalForm.valid" styleClass="p-mr-2"></p-button>

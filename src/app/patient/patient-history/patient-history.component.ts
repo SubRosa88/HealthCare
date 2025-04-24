@@ -12,12 +12,18 @@ import { TableModule } from 'primeng/table';
 import { MedicalEvent2 } from '../../interfaces/MedicalEvent';
 import { Medication } from '../../interfaces/MedicalEvent';
 import {NewEventDialogComponent} from './new-event-dialog.component'
+import { InputFile } from '../../interfaces/MedicalEvent';
+import { ChipModule } from 'primeng/chip';
+import { TextareaModule } from 'primeng/textarea';
+import { FormsModule } from '@angular/forms';
+
 
 
 @Component({
   selector: 'app-timeline',
   standalone: true,
   imports: [
+    FormsModule,
     CommonModule,
     TimelineModule,
     CardModule,
@@ -26,6 +32,8 @@ import {NewEventDialogComponent} from './new-event-dialog.component'
     FileUploadModule,
     BadgeModule,
     TableModule,
+    ChipModule,
+    TextareaModule,
   ],
   templateUrl: './patient-history.component.html',
   styleUrl: './patient-history.component.scss',
@@ -33,12 +41,14 @@ import {NewEventDialogComponent} from './new-event-dialog.component'
 })
 
 export class TimelineComponent {
+  lol: string = "";
   events : MedicalEvent2[] = [
     {
       id: 1,
       title: 'Consulta Médica',
       date: new Date('2023-05-15'),
       subtitle: 'Check-up anual',
+      locked: false,
       where: 'Clínica Central',
       description: 'Consulta de rotina para exames gerais.',
       notes: 'Tomar vacina contra gripe.',
@@ -46,10 +56,11 @@ export class TimelineComponent {
       medication: [{ name: 'Paracetamol', dosage: '500mg', frequency: '8h', start: new Date(), end: new Date(), notes: "some notes" }]
     },
     {
-      id: 1,
+      id: 2,
       title: 'Consulta Médica',
       date: new Date('2021-05-15'),
       subtitle: 'Check-up anual',
+      locked: false,
       where: 'Clínica Central',
       description: 'Consulta de rotina para exames gerais.',
       notes: 'Tomar vacina contra gripe.',
@@ -57,11 +68,12 @@ export class TimelineComponent {
       medication: [{ name: 'Paracetamol', dosage: '500mg', frequency: '8h', start: new Date(), end: new Date(), notes: "some notes" }]
     },
     {
-      id: 1,
+      id: 3,
       title: 'Consulta Médica',
       date: new Date('2024-05-15'),
       subtitle: 'Check-up anual',
       where: 'Clínica Central',
+      locked: false,
       description: 'Consulta de rotina para exames gerais.',
       notes: 'Tomar vacina contra gripe.',
       files: [{ name: 'exame1.pdf' }, { name: 'exame2.jpg' }],
@@ -73,11 +85,14 @@ export class TimelineComponent {
     this.sortEventsAsc();
   }
 
-  buildSubtitle(date: Date, subtitle: string, where: string): string {
-    return `${subtitle} - ${where}`;
+  buildSubtitle(date: Date, subtitle: string, where: string, medic: string): string {
+    return `${subtitle} - ${where} - ${medic}`;
   }
 
   onBasicUploadAuto(eventId: number, event: any): void {
+    const ev: MedicalEvent2 = this.events.filter(x => x.id == eventId)[0];
+    ev.files = [...ev.files, {name: event.files[0].name}]
+
     console.log(`Files uploaded for event ${eventId}:`, event.files);
   }
 
@@ -106,9 +121,15 @@ export class TimelineComponent {
     }
   }
 
+  removeFilesFromEvent(event: MedicalEvent2, item: InputFile) {
+    let lst: InputFile[] =  event.files.filter(i => i.name !== item.name);
+    event.files = lst;
+  }
+
+
   openMedicalEventDialog(): void {
     const ref = this.dialogService.open(NewEventDialogComponent, {
-      header: 'Medication',
+      header: 'New Medical Event',
       width: '30%',
       contentStyle: { 'max-height': '500px', overflow: 'auto' },
       data: { }
@@ -129,5 +150,9 @@ export class TimelineComponent {
 
   sortEventsAsc(){
     this.events.sort((a,b) => b.date.getTime() - a.date.getTime())
+  }
+
+  lockMedicalEvent(event: MedicalEvent2){
+    event.locked = true;
   }
 }
