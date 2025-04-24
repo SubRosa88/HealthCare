@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
   selector: 'app-medication-dialog',
@@ -12,30 +13,41 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     ReactiveFormsModule, // Add this to support [formGroup]
     ButtonModule,
-    InputTextModule
+    InputTextModule,
+    FloatLabelModule,
   ],
   template: `
-    <div class="p-fluid">
+    <div class="p-fluid" style="padding-top: 5px;">
       <form [formGroup]="medicalForm" (ngSubmit)="onSubmit()">
-        <div class="p-field">
-          <label for="where">Title</label>
-          <input id="title" type="text" pInputText formControlName="title" />
+      <div class="p-field">
+        <p-floatlabel variant="on">
+          <input pInputText id="title" type="text" name="title" pInputText formControlName="title" />
+          <label for="title">Title</label>
+        </p-floatlabel>
         </div>
         <div class="p-field">
-          <label for="where">Local</label>
-          <input id="where" type="text" pInputText formControlName="where" />
+        <p-floatlabel variant="on">
+          <input pInputText id="where" type="text" name="where" pInputText formControlName="where" />
+          <label for="where">Where</label>
+        </p-floatlabel>
         </div>
         <div class="p-field">
+        <p-floatlabel variant="on">
+          <input pInputText id="medic" type="text" name="medic" pInputText formControlName="medic" />
           <label for="medic">Medic</label>
-          <input id="medic" type="text" pInputText formControlName="medic" />
+        </p-floatlabel>
         </div>
         <div class="p-field">
+        <p-floatlabel variant="on">
+          <input pInputText id="date" type="date" name="date" pInputText formControlName="date" [placeholder]="" />
           <label for="date">Date</label>
-          <input id="date" type="date" pInputText formControlName="date" />
+        </p-floatlabel>
         </div>
         <div class="p-field">
-          <label for="subtitle">Appointment</label>
-          <input id="subtitle" type="text" pInputText formControlName="subtitle" />
+        <p-floatlabel variant="on">
+          <input pInputText id="appointments" type="text" name="appointments" pInputText formControlName="appointments" />
+          <label for="appointments">Appointments</label>
+        </p-floatlabel>
         </div>
         <div class="p-mt-4">
           <p-button label="Submit" type="submit" [disabled]="!medicalForm.valid" styleClass="p-mr-2"></p-button>
@@ -48,6 +60,7 @@ import { CommonModule } from '@angular/common';
     .p-field {
       margin-bottom: 1rem;
     }
+
   `]
 })
 export class NewEventDialogComponent implements OnInit {
